@@ -1,178 +1,116 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Journal Article
-% LaTeX Template
-% Version 1.4 (15/5/16)
-%
-% This template has been downloaded from:
-% http://www.LaTeXTemplates.com
-%
-% Original author:
-% Frits Wenneker (http://www.howtotex.com) with extensive modifications by
-% Vel (vel@LaTeXTemplates.com)
-%
-% License:
-% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[twocolumn]{article}
 
-%----------------------------------------------------------------------------------------
-%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
-%----------------------------------------------------------------------------------------
+% To render inline code
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily}
 
-\documentclass[twoside,twocolumn]{article}
+% For the bibliography 
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
 
-\usepackage{blindtext} % Package to generate dummy text throughout this template 
-
-\usepackage[sc]{mathpazo} % Use the Palatino font
-\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
-\linespread{1.05} % Line spacing - Palatino needs more space between lines
-\usepackage{microtype} % Slightly tweak font spacing for aesthetics
-\usepackage{graphicx}
-\usepackage[english]{babel} % Language hyphenation and typographical rules
+% Render the equations
 \usepackage{amsmath}
-\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry} % Document margins
-\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
-\usepackage{booktabs} % Horizontal rules in tables
 
-\usepackage{lettrine} % The lettrine is the first enlarged letter at the beginning of the text
-\usepackage[
-backend=biber,
-style=authoryear,
-]{biblatex}
-\title{A bibLaTeX example}
-\addbibresource{tellis.bib} %Import the bibliography file
+\usepackage{graphicx}
 
-\usepackage{enumitem} % Customized lists
-\setlist[itemize]{noitemsep} % Make itemize lists more compact
-
-\usepackage{abstract} % Allows abstract customization
-\renewcommand{\abstractnamefont}{\normalfont\bfseries} % Set the "Abstract" text to bold
-\renewcommand{\abstracttextfont}{\normalfont\small\itshape} % Set the abstract itself to small italic text
-
-\usepackage{titlesec} % Allows customization of titles
-\renewcommand\thesection{\Roman{section}} % Roman numerals for the sections
-\renewcommand\thesubsection{\roman{subsection}} % roman numerals for subsections
-\titleformat{\section}[block]{\large\scshape\centering}{\thesection.}{1em}{} % Change the look of the section titles
-\titleformat{\subsection}[block]{\large}{\thesubsection.}{1em}{} % Change the look of the section titles
-
-\usepackage{fancyhdr} % Headers and footers
-\pagestyle{fancy} % All pages have headers and footers
-\fancyhead{} % Blank out the default header
-\fancyfoot{} % Blank out the default footer
-\fancyhead[C]{A quantitative framework for measuring trade-offs} % Custom header text
-\fancyfoot[RO,LE]{\thepage} % Custom footer text
-
-\usepackage{titling} % Customizing the title section
-
-\usepackage{hyperref} % For hyperlinks in the PDF
-
-%----------------------------------------------------------------------------------------
-%	TITLE SECTION
-%----------------------------------------------------------------------------------------
-
-\setlength{\droptitle}{-4\baselineskip} % Move the title up
-
-\pretitle{\begin{center}\Huge\bfseries} % Article title formatting
-\posttitle{\end{center}} % Article title closing formatting
-\title{A quantitative framework for measuring pairwise trade-offs} % Article title
-\author{%
-\textsc{Thomas James Ellis}\thanks{To whom correspondence should be addressed}\\[1ex] % Your name
-\normalsize Uppsala University, Gregor Mendel Institute \\ % Your institution
-% \normalsize \href{mailto:thomas.ellis@gmi.oeaw.ac.at}{thomas.ellis@gmi.oeaw.ac.at} % Your email address
-\and % Uncomment if 2 authors are required, duplicate these 4 lines if more
-\textsc{Jon {\AA}gren} \\[1ex] % Second author's name
-\normalsize Uppsala University \\ % Second author's institution
-%\normalsize \href{mailto:jane@smith.com}{jane@smith.com} % Second author's email address
-}
-\date{\today} % Leave empty to omit a date
-\renewcommand{\maketitlehookd}{%
-\begin{abstract}
-\noindent \blindtext % Dummy abstract text - replace \blindtext with your abstract text
-\end{abstract}
-}
-
-%----------------------------------------------------------------------------------------
+\title{How and why to quantify pairwise pleiotropy}
 
 \begin{document}
-
-% Print the title
-\maketitle
+	
+	\author{Thomas James Ellis}
 
 %----------------------------------------------------------------------------------------
 %	ARTICLE CONTENTS
 %----------------------------------------------------------------------------------------
+\twocolumn[
+\begin{@twocolumnfalse}
+	\maketitle
+	\begin{abstract}
+		Abstract text.
+	\end{abstract}
+\end{@twocolumnfalse}
+]
+
 \section{Introduction}
 
-Trade-offs between traits arise when an increase in one trait is associated with a decrease in another, and as such impose important constraints on evolution (\cite{Williams1966a, Stearns1992, Hereford2009}).
-For example, trade-offs between life history traits, such as between fecundity and survival, or offspring number and offspring investment, place a limit on the ability of selection to alter any one trait (\cite{Smith1974, Stearns1992}).
-Likewise, adaptation to local environmental conditions can cause reduced fitness in another environment, leading to adaptive genetic differentiation among populations \cite{Williams1966a, Hereford2009}.
-With the more recent advent of molecular and statistical techniques to identify the genetic basis of traits we have been able to investigate the the pleiotropic mechanisms acting at individual loci that give rise to trade-offs (\cite{mitchell2007evolutionary, wagner2011pleiotropic, Wadgymar2017}).
+Pleiotropy is when a single locus affects two or more traits.
+It is of particular interest in evolution because it can either facilititate evolutionary change when multiple traits are selected in parallel, or constrain it when traits trade-off with one another.
+Pleiotropy is thought to play and important role in trade-offs between life history traits such as longevity and reproduction, adaptation to contrasting environments, and the degree to which phenotypic complexity constrains evolution \citep{Williams1966a, williams1957pleiotropy, Stearns1992,Kawecki2004, wagner2008pleiotropic}.
+One fruitful line of research has been to characterise pleiotropy by measuring its effects on correlations between phenotypes \citep{Stearns1992}.
+With the more recent advent of molecular and statistical techniques to identify the genetic basis of traits we have begun to address the challenges involved in understanding the pleiotropic mechanisms acting at individual loci \citep{mitchell2007evolutionary, wagner2011pleiotropic, Wadgymar2017}.
 
-Three mechanisms are typically invoked to describe pleiotropic effects of alleles (\cite{Kawecki2004, mitchell2007evolutionary, Hall2010}).
+Three mechanisms are typically invoked to describe pleiotropic effects of alleles on pairs of traits \citep{Kawecki2004, mitchell2007evolutionary, Hall2010}.
 First, negative (or antagonistic) pleiotropy occurs when an allele is associated with an increase in the trait in one trait, but a decrease in the second trait.
-Conversely, positive pleiotropy occurs when an allele is associated with an increase in both traits, or a decrease in both traits.
+Second, positive pleiotropy occurs when an allele is associated with an increase in both traits, or a decrease in both traits.
 A third "non-pleiotropic" case occurs when an allele is associated with a change in one trait, but no change in the second.
-When the traits in question are fitness in two environments, the latter case is often referred to as 'conditional neutrality' (\cite{mee2019unpacking}).
-These mechanisms have obvious parallels to positive, negative and zero correlations.
-Moreover, the more loci that show positive pleiotropy, the more positive the genetic correlation will be, and vice versa.
+When the traits in question are fitness in two environments, the latter case is often referred to as 'conditional neutrality' \citep{mee2019unpacking}.
+These mechanisms have obvious parallels to positive, negative and zero genetic correlations between overall phenotypes.
+Moreover, the more loci that show negative pleiotropy, the more negative the genetic correlation will be, and hence the stronger any trade-off, and vice versa.
 The frequency of each pleiotropic mechanism is therefore central to determining the relationships between traits, and how they constrain one another.
 
 To understand trade-offs it is essential to be able to measure them.
-For example, relationships between traits can be measured as genetic correlations (\cite{Falconer1996, Stearns1992}).
+For example, relationships between traits can be measured as genetic correlations \citep{Falconer1996, Stearns1992}.
 The resulting correlation coefficient provides an quantitative, intuitive measure of the direction and magnitude of the relationship, which can be easily tested against a null hypothesis.
 However, this relies on having a sample of many genetically diverse individuals on which to measure phenotypes.
 To investigate the pleiotropic effects of individual loci we can only measure the effect of one allele against the other on each trait in question.
 A typical approach is to perform a statistical test on the effect on each trait, and classify loci affecting neither, one or both traits.
-However, as we outline in detail below, this classification process ignores the fundamentally continuous nature of the problem and leads to a statistical bias that systematically underestimates the amount of pleiotropy in the system.
+However, as we outline in detail below, this classification process ignores the fundamentally continuous nature of the problem and leads to a statistical bias that systematically underestimates the amount of pleiotropy in the system \citep{hill2012pleiotropic}.
 Just as correlations measure not just the direction, but also the strength of a relationship between traits, what we need is a framework to quantify the direction and strength pleiotropic mechanisms.
 
 In the rest of this paper we identify and review three key reasons why current approaches to measuring pleiotropy are flawed, and use these to motivate a quantitative framework for measuring trade-offs for individual genotypes.
 We focus on pleiotropic effects of alleles at individual loci, but note that this framework is equally applicable to pairs of multilocus genotypes measured in two contexts, such as a local and a non-local ecotype.
 We then apply this framework to empirical datasets in \textit{Arabidopsis thaliana} investigating environmental and physiological trade-offs in fitness traits.
-An R package \code{sintillate} is provided to apply the method described, available from URL.
-
-%------------------------------------------------
+An R package \lstinline|psiotropy| is provided to apply the method described, available from URL.
 
 \section{Null-hypothesis tests bias conclusions}
 
+% \begin{figure}
+% 	\includegraphics[width=\linewidth]{fig1.eps}
+% 	\caption{A boat.}
+% 	\label{fig:theory}
+%   \end{figure}
+
 \begin{figure*}
     \centering
-    \includegraphics[width=\textwidth]{fig1.eps} % Figure image
-    \caption{Measuring pleiotropy. (A) Testing effects on each trait. The effects of eight fictional loci on traits 1 and 2. A reference allele at each locus has effects \textit{a} and \textit{b} on traits 1 and 2 respectively. The grey bars indicate the boundary of statistical significance. Each locus is categorised as affecting zero, one or both traits based on which side of the bars they are located. (B) The same loci, but represented as vectors with angles ($\theta$) and lengths (with length \textit{z}) from the origin. The coloured axes correspond to mechanisms in C. (C) Function $\tau$ relates angles to pleiotropic mechanisms. Three special cases when $\tau$ is -1, 0 or 1 correspond to antagonistic pleiotropy (red), zero pleiotropy (blue) and positive pleiotropy (green) respectively. Values between these points measure everything in between.}
-    \label{fig:theory} % Label for referencing with \ref{bear}
+    \includegraphics[width=\textwidth]{fig1.eps}
+
+    \caption{Two ways to measure pleiotropy. Each point shows the effect of a hypothetical locus on traits 1 and 2. Colours indicate pleiotropic mechanism: red, green and blue points indicate loci showing negative, positive and zero pleiotropy; black points show no significant association with either trait. (A) Null-hypothesis tests of allelic effects on each trait. A reference allele at each locus has effects \textit{a} and \textit{b} on traits 1 and 2 respectively, and the statistical tests are performed along the x- and y-axes. The grey bars indicate the boundary of statistical significance. Each locus is categorised as affecting zero, one or both traits based on which side of the bars they are located. (B) The same loci, but represented as vectors with angles ($\theta$) and lengths (of magnitude \textit{z}) from the origin. (C) Function $\psi$ relates angles to pleiotropic mechanisms. Three special cases when $\psi$ is -1, 0 or 1 correspond to antagonistic pleiotropy (red), zero pleiotropy (blue) and positive pleiotropy (green) respectively. Values between these points measure everything in between.}
+    \label{fig:theory} % Label for end{figure*}
 \end{figure*}
 
 We consider a biallelic locus associated with two traits typical of many studies.
-Those traits may be phenotypes in the same individual (e.g. fecundity, growth rate, survival) or measures of permforance in separate environments (\cite{falconer1952problem}).
-The reference allele at this locus has effect $a$ on trait 1 and $b$ on trait 2 (Fig. \ref{fig:theory}A).
-We assume that $a$ and $b$ have been estimated appropriately given likely causal relationships between the traits; see \cite*{stephens2013unified} for a detailed discussion.
-For most phenotypes $a$ and $b$ would be the difference in phenotype between the reference and alternate alleles.
-A notable exception is when the traits are fitness, in which case it is more convenient to use the ratio of $a$ and $b$, reflecting a measure or relative fitness.
-It is essential that the distribution of effects on traits 1 and 2 be symmetrical around zero so that the choice of allele is arbitrary, and on the same scale for both traits so they can be compared.
-For standard traits this is achieved by subtracting the mean and dividing by the standard deviation before estimating allelic effects.
-For ratios this is achieved by taking the log of the ratios.
+The reference allele at this locus is associated with a change in trait 1 of size $a$ in trait 2 of size $b$ (Fig. \ref{fig:theory}A).
+The most appropriate way to estimate $a$ and $b$ will depend on the study system, but it is essential that the distribution of effects on traits 1 and 2 be symmetrical around zero so that the choice of allele is arbitrary, and on the same scale for both traits so they can be compared.
+For quantitative phenotypes this can be acheived by standardising values by their mean and standard deviation \citep{schielzeth2010simple}.
+For measures of fitness and its components, one can use the log relative fitness of two alleles.
 
-The next step typically involves some kind of statistical test for the null hypothesis that $a$ or $b$ are zero.
-A common approach is to perform two univariate tests for each trait separately, often accompanied by a discussion of the relative direction of the effect on each trait (e.g. \cite{wagner2008pleiotropic, Hall2010, anderson2011life, agren_genetic_2013, ellis2021life}).
-Loci that affect both loci are classified as positively or negatively pleiotropic (the green point in Fig. \ref{fig:theory}A), those affecting one trait as showing zero pleiotropy (red and yellow points in Fig. \ref{fig:theory}A), and those affecting neither trait are ignored (blue points in Fig. \ref{fig:theory}A).
+The next step typically involves some kind of statistical test for the null hypotheses that $a$ or $b$ are zero.
+A common approach is to perform two univariate tests for each trait separately, often accompanied by a discussion of the relative direction of the effect on each trait (e.g. \citet{wagner2008pleiotropic, Hall2010, anderson2011life, agren_genetic_2013, ellis2021life}).
+Loci that are significantly associated with both loci are classified as positively or negatively pleiotropic (the red points in Fig. \ref{fig:theory}A), those associated with only one trait as showing zero pleiotropy (blue points in Fig. \ref{fig:theory}A), and those affecting neither trait are ignored (black points in Fig. \ref{fig:theory}A).
 We note that other testing variants are available, such as tests for whether a locus affects both or either trait (e.g. \cite{korte2012mixed}; see \cite{porter2017multivariate} for a review and comparison).
 Nevertheless, the goal is the same: to classify each locus as affecting one, both, or neither trait via null hypothesis testing.
 
 There are three shortcomings with this approach.
 First, by classifying effects based on significance thresholds we ignore useful quantitative information about pleiotropic mechanisms.
-For example, if we classify the loci in Fig. \ref{fig:theory}A based on how many traits they each affect we would infer that the green locus affects both traits antagonistic pleiotropy, the red and yellow loci affect one trait, and the blue loci affect neither.
-However, it is clear that the filled points are much more similar in their effects to one another (they are all associated with a decrease in trait 1 and an increase in trait 1) than they are to the other points of the same colour.
-In this way, simply classifying pleiotropic mechanisms discretises the problem, and ignores the fundamentally quantitative nature of pleiotropy.
+For example, if we classify the loci in Fig.~\ref{fig:theory}A based on how many traits they each affect we would infer that the red loci shows negative pleiotropy, the blue loci no pleiotropy, and we would ignore the black loci as non-significant.
+In fact it is clear that loci are often much closer to points of other pleiotropic mechanisms than they are to loci of the same colour.
+As an example, look at the solid points in Fig.~\ref{fig:theory}A; the effects of these loci are all broadly associated with a decrease in trait 2 and an increase in trait 2.
+However, they happen to fall on either side of significance threshold, and are classified as having distinct pleiotropic mechanisms.
+By classifying pleiotropic mechanisms into discrete categories based on statistical significance at individual traits we ignore quantitative information about the strength and mechanism of pleiotropy.
 
-Second, it will always be more difficult to find loci associated with two traits than one because it is a priori less likely to find two significant associations than one (\cite{wagner2011pleiotropic, hill2012pleiotropic}).
-For a visual intuitiion for this, observe that the light grey regions in Fig. \ref{fig:theory}A corresponding to loci associated with one trait only are much larger than the dark grey regions corresponding to loci associated with two traits. Note that this is intended as a didactic example, and the exact sizes of these regions depend will on the data.
-Nevertheless, to a first order approximation and multiple-testing issues notwithstanding, it is generally true that the a priori probability of finding one association is $p=0.05$, but $p^2=0.0025$ for an association with two traits.
-This leads to a statistical bias that systematically underestimates the amount of pleiotropy in the system.
+Second, to identify a pleitropic effect on two or more traits this way requires that we identify two or more statistically significant null-hypothesis tests.
+However, it will always be a priori more difficult to find two significant associations than one \citep{wagner2011pleiotropic, hill2012pleiotropic}.
+Using a standard significance threshold of p=0.05, the a priori expectation of identifying an association with a single trait is 0.05.
+The expectation of finding two significant associations is $p^2=0.00625$, or twenty-fold less likely.
+Higher-order pleiotropic interactions become exponentially more difficult to find.
+For a visual intuitiion for this, observe that loci classified as pleiotropic in Fig.~\ref{fig:theory}A must fall into the corners of the diagram.
+These are the very regions that are furthest from the centre, meaning that effects have to especially strong to be classified as pleiotropic.
+This effects leads to a statistical bias that systematically underestimates the amount of pleiotropy in the system.
 
 Third, use of significance thresholds biases the kinds of effect sizes deemed to be important.
-It is well known that, unless sample sizes are large, conditioning on significant associations tends to overestimate effect sizes (\cite{beavis1998qtl, xu2003theoretical}).
+It is well known that unless sample sizes are large, conditioning on significant associations tends to overestimate effect sizes \citep{beavis1998qtl, xu2003theoretical}.
 This also means we filter out any loci deemed to be 'non-significant'.
-The extent to which these matter will depend on the biological question, but quantitative traits that are generally expected to have a substantial contribution from loci with weak to moderate effects, but which can have a substantial contribution to genetic variance *in aggregate* (\cite{Fisher1930}).
+The extent to which these matter will depend on the biological question, but quantitative traits that are generally expected to have a substantial contribution from loci with weak to moderate effects, but which can have a substantial contribution to genetic variance in aggregate \cite{Fisher1930}.
 Rather than remove them, a stronger approach would be to quantify how much weak effects contribute to overall trade-offs.
 
 In summary, by relying on null-hypothesis testing to infer mechanisms of pleiotropy we (1) discretise what is a continuous phenomenon, (2) underestimate the amount of pleiotropy, and (3) ignore the contribution of weak effects. To alleviate this, we would like a method that (1) quantifies rather than classifies pleiotropic mechanism, (2) focusses on effect sizes and their uncertainty, and (3) uses as much of the data as possible.
@@ -182,13 +120,17 @@ In summary, by relying on null-hypothesis testing to infer mechanisms of pleiotr
 \subsection{Effects as angles and magnitudes}
 
 We propose a simple approach to address the goals identified in the previous section.
-Rather than define pleiotropic effects along the $x$ and $y$ axes (Fig. \ref{fig:theory}) we instead describe effects as angles and vector lengths.
-Without loss of information, any pair of values for $a$ and $b$ can be described via angle $\theta$ and magnitude $z = \sqrt{a^2+b^2}$ (Fig. \ref{fig:theory}B).
+Rather than define pleiotropic effects along the axes of traits 1 and 2 (Fig. \ref{fig:theory}) we instead describe effects as angles and vector lengths.
+Any pair of values for $a$ and $b$ can be described via angle $\theta$ and magnitude $z = \sqrt{a^2+b^2}$ (Fig. \ref{fig:theory}B).
 $\theta$ is measured (arbitrarily) from the axis pointing right, and contains information about the mechanism of pleiotropy.
 When $\theta$ points along the axes in red, blue and green in Fig. \ref{fig:theory}B these correspond to loci showing negative, zero, and positive pleiotropy respectively.
-This can be turned into a more useful statistic by taking function $\tau$ of $\theta$ (Fig. \ref{fig:theory}C), which is cyclical and hence must be defined piecewise:
+Note that, as mentioned above, this relies on $a$ and $b$ centered around zero and on the same scale.
+
+$\theta$ can be turned into a more useful statistic by taking function $\psi$ (Fig. \ref{fig:theory}C)
+This function is cyclical and hence must be defined piecewise:
+
 \begin{equation}
-\tau=
+\psi=
 \begin{cases}
      k\theta, & \text{if}\   0^\circ \geq \theta <  45^\circ \\
    2-k\theta, & \text{if}\  45^\circ \geq \theta < 135^\circ \\
@@ -197,13 +139,15 @@ This can be turned into a more useful statistic by taking function $\tau$ of $\t
   -2+k\theta, & \text{if}\ 315^\circ \geq \theta < 360^\circ
 \end{cases}
 \end{equation}
+
 where $k=\frac{1}{45}$.
 This resembles a linearised sine wave, and is likely to be clearer as a figure (Fig. \ref{fig:theory}C) than an equation.
-Values of $\tau$ of -1, 0, and 1 correspond to the special cases of symmetrical negative, zero and positive pleiotropy (red, blue and green in Fig. \ref{fig:theory}B and C).
-In addition, all intermediate values between these cases are possible.
-In this way, $\tau$ reflects a quantitative measure of the pleiotropic mechanism.
+Values of $\psi$ of -1, 0, and 1 correspond to the special cases of symmetrical negative, zero and positive pleiotropy (red, blue and green in Fig. \ref{fig:theory}B and C).
+However, since $\psi$ is quantitative, all intermediate values between these cases are possible.
+There is a close analogy here with traditional correlation coefficients, where values from -1, 1 reflect a continuum from negative to positive correlations.
+In this way, $\psi$ reflects an intuitive quantitative measure of the pleiotropic mechanism.
 
-$z$ reflects the overall magnitude of the effect.
+The overall length of the vector $z$ reflects the overall magnitude of the effect.
 Just as larger values of $a$ and $b$ reflect stronger effects on each trait, values of $z$ which are further from the origin reflect a stronger effect overall.
 A key difference between these numbers is that $a$ and $b$ measure effects along specific axes, but $z$ but is agnostic about the direction of the effect.
 This decouples estimation of the direction and magnitude of the effect.
@@ -211,58 +155,89 @@ This also means that estimates of uncertainty can be assessed on one axis only, 
 
 \subsection{Uncertainty in estimates}
 
-Assess uncertainty by resampling
-Parametric,
-nonparametric
-bayes
+In addition to point estimates of $\psi$ and $z$ one would typically wish to estimate the uncertainty of these statistics.
+Two points are worth highlighting here.
+First, if we were to compare vectors of different magnitudes of $z$, we would expect shorter vectors to have higher uncertainty in $\psi$, even if the standard errors of $a$ and $b$ remained constant (Fig \ref{fig:uncertainity}A).
+As $z$ approaches zero, the overlap becomes complete, and there is no information about the $\psi$.
+Fortunately, this is indpendent of the direction of $\theta$.
+The stronger the allelic effects the more robust are estimates of pleiotropic mechanism.
 
-How to claculate zstar
-get a q
+Second, pleiotropic traits of interest are often correlated.
+This in turn causes the sampling distributions of $a$ and $b$ to be correlated.
+The direction of this correlation can have a major impact on uncertainity in $\psi$.
+When the directions of $\psi$ and the correlation of sampling distributions are closely aligned, we expect less uncertainty in $\psi$.
+When the directions are opposite, we expect greater uncertainty in $\psi$.
+By extension, if we were to incorrectly assume the correlation were zero we would estimate the uncertainty in $\psi$ incorrectly.
+As such, care must be taken that any resampling procedure accounts for the correlation in the sampling distribution of $a$ and $b$.
 
-Sometimes you might not be able to do that.
-Here's a formula to get a SD on z.
+A simple way to estimate uncertainity in pleiotropy statistics is to generate a sample of estimates of $a$ and $b$ and calculate $\psi$ and $z$ on each pair of values.
+It is then straightforward to calculate confidence intervals from the quantiles of those distributions.
+This can easily be done by non-parametric bootstrapping, which when done correctly should preserve the covariance structure between $a$ and $b$ \citep{efron1982jackknife}.
+Other approaches would be parametric bootstrapping or Bayesian regression, as long as care is taken to model the covariance.
 
-\subsection{\code{sintillate} package}
+% The closer $z$ is to zero, the more the distribution of $a$ and $b$ overlap zero, and the greater the uncertainty in $\psi$.
+% Thus, the degree of overlap reflects a quantitative estimate of the robustness of estimates of $\psi$.
+% To estimate this, we first project the sample of values for $a$ and $b$ onto the vector $\bar{a},\bar{b}$, and calculate the magnitude $z*$ of those projections.
+% We then estimate $q$ as twice the proportion of projected points which are on the same side of the origin as $\bar{a},\bar{b}$.
+% When no points overlap, this number is 1; as $z$ approches zero, $q$ approaches 0.
 
-\section{Application to data}
+% How to claculate zstar
+% get a q
 
-\subsection{Pleiotropy in local adaptation}
+% Sometimes you might not be able to do that.
+% Here's a formula to get a SD on z.
 
-Selection on parental phenotypes
+% \subsection{\verbatim{sintillate} package}
 
-Selection across markers
+% \section{Application to data}
 
-Somehow relate (mean?) tau to genetic correlation? 
+% \subsection{Pleiotropy in local adaptation}
 
-%------------------------------------------------
+% Selection on parental phenotypes
+
+% Selection across markers
+
+% Somehow relate (mean?) tau to genetic correlation? 
+
+% %------------------------------------------------
 
 \section{Discussion}
 
-There is a close correspondence between $\tau$ 
+
+There is a close correspondence between $\psi$ 
 just as genetic correlations of -1, 0 and 1 correspond to negative, zero and positive correlations.
+This is like estimating a correlation, except that correlations are between pairs of vectors numbers and $\psi$ is between pairs of individual point estimates.
+As such, it is generally applicable whenever it is not possible to measure multiple observations.
 
-Mention GxE
-For examples, reciprocal transplant experiments can uncover adaptation to specific environments between pairs of genotypes or populations \cite{turesson1922, clausen1940experimental, Kawecki2004}.
+The method outlined here describes pairs of traits.
+An obvious question is whether it is possible to apply this to more than two traits.
+It is not immediately clear how to directly extend the statistics $\psi$ and $z$ to three or more traits.
+We note that it also not clear how to extend traditional correlation statistics to three or more traits, but this has not prevented them from being extremely useful.
+Nevertheless one potential avenue of research would be to estimate $\psi$ for multiple pairs of traits, and to use those values as edges in a pleiotropic network.
+This is analagous to the idea of a gene co-expression network, where edges are build on correlation coefficients.
 
-Stephens 2013
-How will errors be correlated if you use different models?
+% Mention GxE
+% For examples, reciprocal transplant experiments can uncover adaptation to specific environments between pairs of genotypes or populations \cite{turesson1922, clausen1940experimental, Kawecki2004}.
 
-\subsection{Subsection One}
+% Stephens 2013
+% How will errors be correlated if you use different models?
 
-We don't address the question "how many traits?"
-Does this extend tp multiple traits?
-You could make a G matrix
+% \subsection{Subsection One}
 
-\subsection{Subsection Two}
+% We don't address the question "how many traits?"
+% Does this extend tp multiple traits?
+% You could make a G matrix
 
-\blindtext % Dummy text
+% \subsection{Subsection Two}
+
+% \blindtext % Dummy text
 
 %----------------------------------------------------------------------------------------
 %	REFERENCE LIST
 %----------------------------------------------------------------------------------------
 
-\printbibliography %Prints bibliography
-
+%\printbibliography %Prints bibliography
+\bibliography{tellis}
 %----------------------------------------------------------------------------------------
 
 \end{document}
